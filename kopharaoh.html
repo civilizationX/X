@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KO Pharaoh: Welcome Home</title>
+    <style>
+        body {
+            background-color: #ff4500; /* Reddish-orange */
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #333;
+            padding: 10px 20px;
+        }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .navbar ul li {
+            position: relative;
+            margin: 0 15px;
+        }
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: #444;
+            display: none;
+            flex-direction: column;
+        }
+        .navbar ul li:hover .dropdown {
+            display: flex;
+        }
+        .search-box {
+            display: flex;
+        }
+        .search-box input {
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+        }
+        .search-box button {
+            padding: 5px 10px;
+            border: none;
+            background: #ff4500;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .profile-container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        .description {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li>
+                <a href="#">Services ▾</a>
+                <ul class="dropdown">
+                    <li><a href="#">Web Design</a></li>
+                  
+                </ul>
+            </li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+    </nav>
+
+    <div class="profile-header"> </div>
+    <div class="profile-container">
+        <img src="profile.jpg" alt="Profile Picture" class="profile-pic">
+        <div class="description">
+            <p>Write your description here...</p>
+        </div>
+    </div>
+</body>
+</html>

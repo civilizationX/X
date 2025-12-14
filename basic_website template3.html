@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        nav a.active {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            background-color: #ecf0f1;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+
+        /* Content Sections */
+        section {
+            margin: 2rem 0;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        section p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Form Styles */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: Arial, sans-serif;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Page specific content (hidden by default) */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Blog Styles */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-card:nth-child(2) .blog-image {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .blog-card:nth-child(3) .blog-image {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .blog-card:nth-child(4) .blog-image {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .blog-card:nth-child(5) .blog-image {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .blog-card:nth-child(6) .blog-image {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        .blog-category {
+            background-color: #3498db;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .blog-card h3 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-card p {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .read-more:hover {
+            color: #2980b9;
+        }
+
+        .read-more::after {
+            content: ' →';
+        }
+
+        /* Blog Post Page Styles */
+        .blog-post-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .featured-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .featured-image-placeholder {
+            font-size: 5rem;
+            color: white;
+        }
+
+        .blog-post-content {
+            padding: 3rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .back-button:hover {
+            color: #2980b9;
+        }
+
+        .back-button::before {
+            content: '← ';
+        }
+
+        .blog-title {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .blog-excerpt {
+            font-size: 1.2rem;
+            color: #555;
+            font-style: italic;
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .blog-body h2 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-body h3 {
+            font-size: 1.4rem;
+            color: #2c3e50;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .blog-body p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+        }
+
+        .blog-body ul,
+        .blog-body ol {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+        }
+
+        .blog-body li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .blog-body blockquote {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #555;
+        }
+
+        .blog-body code {
+            background-color: #f4f4f4;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+        }
+
+        .blog-body pre {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        .blog-body pre code {
+            background: none;
+            color: white;
+            padding: 0;
+        }
+
+        .share-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .share-section h3 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-button {
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .share-button:hover {
+            opacity: 0.8;
+        }
+
+        .share-twitter {
+            background-color: #1da1f2;
+        }
+
+        .share-facebook {
+            background-color: #1877f2;
+        }
+
+        .share-linkedin {
+            background-color: #0a66c2;
+        }
+
+        .share-email {
+            background-color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .blog-post-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .blog-title {
+                font-size: 2rem;
+            }
+
+            .featured-image {
+                height: 250px;
+            }
+
+            .featured-image-placeholder {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home" class="nav-link active" data-page="home">Home</a></li>
+            <li><a href="#about" class="nav-link" data-page="about">About</a></li>
+            <li><a href="#blog" class="nav-link" data-page="blog">Blog</a></li>
+            <li><a href="#contact" class="nav-link" data-page="contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <header>
+            <h1>Welcome to My Website</h1>
+            <p>Your journey starts here</p>
+        </header>
+
+        <div class="container">
+            <section>
+                <h2>What We Do</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </section>
+
+            <section>
+                <h2>Our Services</h2>
+                <p>We offer a wide range of services to help you succeed. From consulting to implementation, we're here to support your goals and help you achieve excellence.</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <header>
+            <h1>About Us</h1>
+            <p>Learn more about our story</p>
+        </header>
+
+        <div class="container">
+            <section>
+                <h2>Our Story</h2>
+                <p>Founded in 2020, our company has been dedicated to providing exceptional service and innovative solutions. We believe in putting our customers first and delivering results that exceed expectations.</p>
+                <p>Our team consists of passionate professionals who are committed to excellence in everything we do. We work collaboratively to solve complex problems and create meaningful impact.</p>
+            </section>
+
+            <section>
+                <h2>Our Mission</h2>
+                <p>To empower individuals and organizations through innovative solutions and exceptional service. We strive to make a positive difference in everything we do.</p>
+            </section>
+
+            <section>
+                <h2>Our Values</h2>
+                <p>Integrity, innovation, and customer satisfaction are at the core of our business. We believe in building long-term relationships based on trust and mutual success.</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Blog Page -->
+    <div id="blog" class="page">
+        <header>
+            <h1>Our Blog</h1>
+            <p>Stories, insights, and updates</p>
+        </header>
+
+        <div class="container">
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">📱</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Technology</span>
+                            <span>Dec 10, 2024</span>
+                        </div>
+                        <h3>The Future of Web Design</h3>
+                        <p>Explore the latest trends shaping modern web design, from minimalist interfaces to immersive user experiences that captivate audiences.</p>
+                        <a href="#" class="read-more" data-post="post1">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🎨</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Design</span>
+                            <span>Dec 8, 2024</span>
+                        </div>
+                        <h3>Color Theory in Digital Design</h3>
+                        <p>Understanding how colors affect user emotions and behavior can transform your design approach and create more engaging experiences.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">💡</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Business</span>
+                            <span>Dec 5, 2024</span>
+                        </div>
+                        <h3>Building a Successful Startup</h3>
+                        <p>Key strategies and lessons learned from entrepreneurs who've successfully navigated the challenging early stages of business growth.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🚀</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Development</span>
+                            <span>Dec 3, 2024</span>
+                        </div>
+                        <h3>Modern JavaScript Frameworks</h3>
+                        <p>A comprehensive comparison of today's most popular frameworks and how to choose the right one for your next project.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">📊</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Marketing</span>
+                            <span>Nov 30, 2024</span>
+                        </div>
+                        <h3>Data-Driven Marketing Strategies</h3>
+                        <p>Learn how to leverage analytics and insights to create marketing campaigns that resonate with your target audience.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🌟</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span class="blog-category">Inspiration</span>
+                            <span>Nov 28, 2024</span>
+                        </div>
+                        <h3>Finding Creative Inspiration</h3>
+                        <p>Practical tips and techniques for overcoming creative blocks and maintaining a steady flow of fresh ideas.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Post Page -->
+    <div id="post1" class="page">
+        <div class="blog-post-container">
+            <div class="featured-image">
+                <div class="featured-image-placeholder">📱</div>
+            </div>
+
+            <div class="blog-post-content">
+                <a href="#blog" class="back-button blog-back">Back to Blog</a>
+
+                <div class="blog-meta">
+                    <span class="blog-category">Technology</span>
+                    <span class="blog-date">December 10, 2024</span>
+                    <span class="blog-author">By <strong>John Doe</strong></span>
+                </div>
+
+                <h1 class="blog-title">The Future of Web Design: Trends to Watch in 2025</h1>
+
+                <div class="blog-excerpt">
+                    Explore the latest trends shaping modern web design, from minimalist interfaces to immersive user experiences that captivate audiences and drive engagement.
+                </div>
+
+                <div class="blog-body">
+                    <p>The world of web design is constantly evolving, and 2025 promises to bring exciting new trends that will reshape how we create and experience digital content. In this article, we'll explore the key trends that are set to dominate the web design landscape.</p>
+
+                    <h2>1. Minimalist Design Continues to Reign</h2>
+                    <p>Minimalism isn't going anywhere. Clean, uncluttered interfaces that prioritize user experience and content over decorative elements continue to be the gold standard. This approach helps users focus on what matters most while creating elegant, timeless designs.</p>
+
+                    <h3>Key Elements of Minimalist Design</h3>
+                    <ul>
+                        <li>Ample white space for breathing room</li>
+                        <li>Limited color palettes that create visual harmony</li>
+                        <li>Simple, intuitive navigation structures</li>
+                        <li>Typography as a design element</li>
+                    </ul>
+
+                    <h2>2. Dark Mode as Standard</h2>
+                    <p>Dark mode has transitioned from a trendy feature to a user expectation. More websites are offering dark mode options to reduce eye strain and provide a modern aesthetic that users have come to love.</p>
+
+                    <blockquote>
+                        "Good design is as little design as possible. Less, but better - because it concentrates on the essential aspects." - Dieter Rams
+                    </blockquote>
+
+                    <h2>3. Immersive 3D Elements</h2>
+                    <p>With improved browser capabilities and faster internet speeds, 3D elements are becoming more prevalent. From subtle depth effects to fully interactive 3D models, these elements add a layer of engagement that flat design simply can't match.</p>
+
+                    <h3>Implementation Tips</h3>
+                    <ol>
+                        <li>Start small with subtle 3D effects</li>
+                        <li>Ensure performance doesn't suffer</li>
+                        <li>Use 3D elements purposefully, not decoratively</li>
+                        <li>Test across different devices and browsers</li>
+                    </ol>
+
+                    <h2>4. Micro-Interactions and Animations</h2>
+                    <p>Thoughtful animations and micro-interactions provide feedback, guide users, and add personality to websites. These small details can significantly enhance user experience when implemented correctly.</p>
+
+                    <p>Here's a simple example of a hover effect using CSS:</p>
+                    <pre><code>.button {
+  transition: transform 0.3s;
+}
+
+.button:hover {
+  transform: translateY(-3px);
+}</code></pre>
+
+                    <h2>Conclusion</h2>
+                    <p>The future of web design is bright and full of possibilities. By staying informed about these trends and thoughtfully implementing them in your projects, you can create websites that not only look great but also provide exceptional user experiences.</p>
+
+                    <p>Remember, trends come and go, but good design principles remain constant. Focus on creating value for your users, and you'll always be ahead of the curve.</p>
+                </div>
+
+                <div class="share-section">
+                    <h3>Share this article</h3>
+                    <div class="share-buttons">
+                        <a href="#" class="share-button share-twitter">Twitter</a>
+                        <a href="#" class="share-button share-facebook">Facebook</a>
+                        <a href="#" class="share-button share-linkedin">LinkedIn</a>
+                        <a href="#" class="share-button share-email">Email</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <header>
+            <h1>Contact Us</h1>
+            <p>Get in touch with our team</p>
+        </header>
+
+        <div class="container">
+            <section>
+                <h2>Send Us a Message</h2>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+
+                    <button type="submit">Send Message</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 My Website. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Page navigation
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pages = document.querySelectorAll('.page');
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all links and pages
+                navLinks.forEach(l => l.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked link
+                this.classList.add('active');
+                
+                // Show corresponding page
+                const pageId = this.getAttribute('data-page');
+                document.getElementById(pageId).classList.add('active');
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Blog post navigation
+        document.querySelectorAll('.read-more').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const postId = this.getAttribute('data-post');
+                
+                // Hide all pages
+                pages.forEach(p => p.classList.remove('active'));
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Show blog post
+                document.getElementById(postId).classList.add('active');
+            });
+        });
+
+        // Back to blog button
+        document.querySelectorAll('.blog-back').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Hide all pages
+                pages.forEach(p => p.classList.remove('active'));
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Show blog page
+                document.getElementById('blog').classList.add('active');
+                document.querySelector('[data-page="blog"]').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
